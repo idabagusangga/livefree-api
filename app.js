@@ -4,10 +4,15 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var userHome = require('./routes/userHome');
+const house = require('./routes/house');
+
 
 var app = express();
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const cors = require('cors');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,6 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -25,8 +31,9 @@ require('dotenv').config()
 
 mongoose.connect(`mongodb://${process.env.DBUSER}:${process.env.DBPASSWORD}@ds135926.mlab.com:35926/library`);
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/api', index);
+app.use('/api/house',house)
+app.use('/api/users', userHome);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
