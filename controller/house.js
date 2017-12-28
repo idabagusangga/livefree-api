@@ -12,6 +12,10 @@ class HouseController{
         })
     }
     static createHouse(req,res){
+        console.log(req.file);
+        console.log('-----------------------');
+        console.log(req.body);
+        req.body.map = req.file.cloudStoragePublicUrl
         let newHouse = new House({
             name        : req.body.name,
             location    : req.body.location,

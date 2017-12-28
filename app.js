@@ -12,6 +12,8 @@ var app = express();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const multer = require('multer');
+const upload = multer({dest : 'uploads/'})
 
 
 // view engine setup
