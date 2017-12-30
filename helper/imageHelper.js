@@ -13,6 +13,9 @@ const getPublicUrl = (filename) => {
 }
 
 const sendUploadToGCS = (req, res, next) => {
+  if(!req.body.token){
+      res.send('Please Log in to continue')
+  }
   if (!req.file) {
     return next()
   }
